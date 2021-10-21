@@ -1,3 +1,5 @@
 .idea
 out
 *.iml
+# 排除所有.class文件:
+*.class
