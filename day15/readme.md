@@ -214,3 +214,101 @@ class AudiCarFactory implements CarFactoryInterface {
 }
 ```
 
+## abstract能修饰哪些结构？修饰以后有什么特点
+
+abstract可以修饰类、方法。抽象类无法实例化，抽象方法没有方法体且无法被重写
+
+## 接口与接口之间能否存在继承关系
+
+能
+
+## 抽象类能否实现接口
+
+可以，抽象类中不全是抽象方法，也允许声明普通方法
+
+## 抽象类能否继承非抽象的类
+
+可以
+
+## 抽象类和接口的异同点
+
+- 都无法实例化
+- 都代表一种标准、一种规范
+- 都可以被继承
+- 抽象类有构造器，接口没有
+- 抽象类中允许存在普通方法和抽象方法，接口中允许存在抽象方法、静态方法、默认方法
+- 接口允许多继承，抽象类允许单继承
+
+
+
+## 如何创建静态成员内部类和非静态成员内部类的对象
+
+```java
+package com.learn;
+
+public class InnerClassTest {
+    public static void main(String[] args) {
+        //静态成员内部类的实例化
+        Person.Brain brain = new Person.Brain();
+        brain.think();
+
+        //非静态成员内部类的实例化
+        Person p = new Person();
+        Person.Dog dog = p.new Dog();
+
+    }
+}
+
+class Person {
+    String name;
+    int age;
+
+    //静态成员内部类
+    static class Brain {
+        public void think() {
+            System.out.println("思考中");
+        }
+    }
+
+    //非静态成员内部类
+    class Dog {
+        String name;
+        public void eat() {
+            System.out.println("啃骨头");
+            //调用外部类的方法
+            Person.this.eat();
+        }
+
+        public void display(String name) {
+            System.out.println(name);
+            System.out.println(this.name);
+            System.out.println(Person.this.name);
+        }
+    }
+
+    public void eat() {
+        System.out.println("吃狗肉");
+    }
+}
+```
+
+## 局部内部类的使用小细节
+
+```java
+package com.learn;
+
+public class InnerClassTest {
+    public void method() {
+        int num = 10;
+        
+        class A {
+            public void show() {
+                System.out.println(num);
+                num ++;
+            }
+        }
+    }
+}
+```
+
+编译报错的原因是局部内部类的方法，是无法修改外部方法中定义的局部变量的，此时虽然没有写明，但num其实是个常量
