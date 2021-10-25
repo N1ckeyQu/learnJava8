@@ -1,7 +1,5 @@
 package com.learn;
 
-import java.util.Objects;
-
 /**
  * 单例模式——懒汉式
  */
@@ -13,7 +11,7 @@ public class Full {
     }
 
     public static Full getInstance() {
-        if (Objects.isNull(instance)) {
+        if (instance == null) {
             instance = new Full();
         }
         return instance;
